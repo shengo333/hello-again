@@ -20,7 +20,9 @@
     <div class="valid-period">
       <Valid @dateChange="handleDateChange" />
     </div>
-    <div class="triggers">triger component</div>
+    <div class="triggers">
+      <Trigger @triggerEmits="setTrigerOptions" />
+    </div>
     <div class="filters">filter</div>
     <div class="actions">action component</div>
     <div class="footer">delete and save</div>
@@ -33,17 +35,24 @@
 import { NotebookPen } from "lucide-vue-next";
 import { ref } from "vue";
 import Valid from "@/components/Valid.vue";
+import Trigger from "@/components/Trigger.vue";
 
 const name = ref("");
 const enabled = ref(false);
 const startDate = ref(null);
 const endDate = ref(null);
+const triger = ref({});
 
 function handleDateChange(dates) {
   startDate.value = dates.startDate;
   endDate.value = dates.endDate;
 
   console.log(startDate.value, endDate.value, "this are emited dates");
+}
+
+function setTrigerOptions(options) {
+  triger.value = options;
+  console.log(triger.value, "kajnsdkjsnd");
 }
 </script>
 
