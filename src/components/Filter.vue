@@ -23,6 +23,7 @@
           v-model="filterValues[filter]"
           @input="emitFilter"
         />
+        <button @click="deleteFilter(filter)">Delete</button>
       </div>
       <div v-if="filter === 'Last purchase'" class="filter-options">
         <p>{{ filter }}</p>
@@ -33,6 +34,7 @@
           v-model="filterValues[filter]"
           @input="emitFilter"
         />
+        <button @click="deleteFilter(filter)">Delete</button>
       </div>
       <div v-if="filter === 'Segment'" class="filter-options">
         <p>{{ filter }}</p>
@@ -43,6 +45,7 @@
           v-model="filterValues[filter]"
           @input="emitFilter"
         />
+        <button @click="deleteFilter(filter)">Delete</button>
       </div>
       <div v-if="filter === 'Email'" class="filter-options">
         <p>{{ filter }}</p>
@@ -53,10 +56,11 @@
           v-model="filterValues[filter]"
           @input="emitFilter"
         />
+        <button @click="deleteFilter(filter)">Delete</button>
       </div>
     </div>
 
-    <button @click="filterData">filter data</button>
+    <button @click="filterData" class="filter-data">Filter data</button>
   </div>
 </template>
 
@@ -84,14 +88,23 @@ const addFilter = () => {
 
 const emit = defineEmits(["filterEmit"]);
 
-const emitFilter = () => {
-  //   console.log(filterValues.value, "kjasndhjasjhbdjhasbdhb");
-  // Emit the updated filter values to the parent component
-  emit("filterEmit", filterValues);
-};
+// const emitFilter = () => {
+
+//   emit("filterEmit", filterValues);
+// };
 
 function filterData() {
   emit("filterEmit", filterValues);
+}
+
+function deleteFilter(filter) {
+  console.log(selectedFilters.value, "selected filers");
+
+  selectedFilters.value = selectedFilters.value.filter(
+    (selectedFilter) => selectedFilter !== filter
+  );
+
+  console.log(selectedFilters.value, "eeeeh");
 }
 </script>
 
@@ -107,8 +120,17 @@ function filterData() {
 }
 
 .filter-options {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.filter-data {
+  background: lightgreen;
+  padding: 1rem;
+  max-width: 10rem;
+  border: none;
+  border-radius: 15px;
 }
 </style>
 
