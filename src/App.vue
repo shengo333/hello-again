@@ -10,10 +10,16 @@
       </div>
       <div class="name">
         <p>Name:</p>
-        <input type="text" name="name" />
+        <input type="text" name="name" v-model="name" />
+      </div>
+      <div class="enabled">
+        <p>Enabled</p>
+        <input type="checkbox" v-model="enabled" />
       </div>
     </div>
-    <div class="valid-period">valid period component</div>
+    <div class="valid-period">
+      <Valid @dateChange="handleDateChange" />
+    </div>
     <div class="triggers">triger component</div>
     <div class="filters">filter</div>
     <div class="actions">action component</div>
@@ -25,6 +31,20 @@
 
 <script setup>
 import { NotebookPen } from "lucide-vue-next";
+import { ref } from "vue";
+import Valid from "@/components/Valid.vue";
+
+const name = ref("");
+const enabled = ref(false);
+const startDate = ref(null);
+const endDate = ref(null);
+
+function handleDateChange(dates) {
+  startDate.value = dates.startDate;
+  endDate.value = dates.endDate;
+
+  console.log(startDate.value, endDate.value, "this are emited dates");
+}
 </script>
 
 
@@ -44,6 +64,10 @@ import { NotebookPen } from "lucide-vue-next";
       p {
         font-weight: bold;
       }
+    }
+    .name {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
